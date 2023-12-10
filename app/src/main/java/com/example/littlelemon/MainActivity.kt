@@ -1,12 +1,21 @@
 package com.example.littlelemon
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialogDefaults.shape
 import androidx.compose.material3.Button
@@ -15,9 +24,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,75 +40,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LittleLemonTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    UpperPanel(
-                        name = stringResource(id = R.string.title),
-                        place = stringResource(id = R.string.place),
-                    )
-                }
-            }
+            HomeScreen()
         }
+
     }
-}
 
 
 @Composable
-fun UpperPanel(name: String,place:String) {
+fun HomeScreen(){
     Column {
-        Text(
-            text = "$name!",
-            fontSize=32.sp,
-            color=Color(R.color.primary)
-
+        UpperPanel(
+            name = stringResource(id = R.string.title),
+            place = stringResource(id = R.string.place),
         )
-        Text(
-            text = place,
-            fontSize=32.sp,
-            color=Color(R.color.primary)
-
-        )
-        Row {
-           Column {
-               Button(onClick = { /*TODO*/ },
-                   shape = RoundedCornerShape(16.dp),
-                   colors = ButtonDefaults.buttonColors(colorResource(id= R.color.primary))
-               )
-               {
-                   Text(
-                       text = "Reserve a table",
-                       fontSize=18.sp
-                   )
-
-               }
-
-               Text(
-                   text = "At Little Lemon, we believe in creating more than just a dining experience",
-                   fontSize=18.sp
-
-               )
-
-           }
-//            Image(painter = id=R.drawable.foodpic, contentDescription = )
-
-        }
+        LowerPanel()
     }
-
 }
-
-@Preview(showBackground = true)
-@Composable
-fun RestaurantNamePreview() {
-    UpperPanel(
-        name = stringResource(id = R.string.title),
-        place = stringResource(id = R.string.place),
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    LittleLemonTheme {
-    }
 }

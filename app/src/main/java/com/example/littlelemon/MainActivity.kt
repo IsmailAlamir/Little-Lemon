@@ -40,46 +40,23 @@ class MainActivity : ComponentActivity() {
 
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(){
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-
-
-    Scaffold(
-
-    ) {
-
-    Column {
-        TopAppBar(drawerState=drawerState , scope=scope)
-
-        UpperPanel(
-            name = stringResource(id = R.string.title),
-            place = stringResource(id = R.string.place),
-        )
-        LowerPanel()
-    }
-    }
-}
-
-
-
-
-
-}
-//    Scaffold (
-////        drawerContent ={ DrawerPanel(scaffoldState = snackBarHostState, scope = scope)}
+    Scaffold (
 //        topBar ={
-//        TopAppBar(scaffoldState= scaffoldState, scope=scope)
-//    }){
-//    Column {
-//        UpperPanel(
-//            name = stringResource(id = R.string.title),
-//            place = stringResource(id = R.string.place),
-//        )
-//        LowerPanel()
-//    }
-//}
+//            DrawerPanel()
+//        },
+        content = {DrawerPanel()
+            Column {
 
+            UpperPanel(
+                name = stringResource(id = R.string.title),
+                place = stringResource(id = R.string.place),
+            )
+            LowerPanel()
+        }})
+}
+
+}

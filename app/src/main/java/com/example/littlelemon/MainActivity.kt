@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
@@ -39,24 +41,22 @@ class MainActivity : ComponentActivity() {
     }
 
 
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(){
-    Scaffold (
-//        topBar ={
-//            DrawerPanel()
-//        },
-        content = {DrawerPanel()
-            Column {
-
+    Scaffold(topBar = {DrawerPanel()},
+    ) {
+        Column {
+            Spacer(modifier = Modifier.height(64.dp))
             UpperPanel(
                 name = stringResource(id = R.string.title),
                 place = stringResource(id = R.string.place),
             )
             LowerPanel()
-        }})
+        }    }
+
 }
 
 }
+

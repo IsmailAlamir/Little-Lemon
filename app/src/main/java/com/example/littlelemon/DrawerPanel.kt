@@ -59,8 +59,7 @@ fun DrawerPanel(){
         ModalDrawerSheet {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 64.dp),
+                    .fillMaxWidth(),
                     contentAlignment = Alignment.Center
             ){
                 Text(text = "Header", style = MaterialTheme.typography.headlineLarge)
@@ -88,13 +87,6 @@ fun DrawerPanel(){
         }
 
 
-//
-//    List(4){
-//        Text(text = "item #$it", modifier= Modifier.padding(horizontal=20.dp, vertical = 10.dp))
-//    }
-//    IconButton(onClick = { /*TODO*/ }) {
-//         Icon(ImageVector=Icons.Default.ExitToApp, contentDescription = "Close Icon")
-//    }
 
 data class DrawerItem(
     val   icon: ImageVector,
@@ -102,15 +94,3 @@ data class DrawerItem(
     val secondaryLabel: String
 )
 
-
-//fun Contant(){
-//    Scaffold {
-//        topBar={
-//            TopAppBar {
-//                NavigationIcon= {
-//
-//                }
-//            }
-//        }
-//    }
-//}

@@ -31,24 +31,18 @@ fun TopAppBar(onClick:()->Unit){
 
         IconButton(onClick = onClick) {
             Image(painter = painterResource(id = R.drawable.ic_hamburger_menu), contentDescription = "Menu Icon",
-                modifier= Modifier.size(24.dp))
+                modifier= Modifier.size(28.dp))
 
         }
         Image(painter = painterResource(id = R.drawable.littlelemonlogo), contentDescription = "Little Lemon Logo",
             modifier= Modifier.fillMaxWidth(0.5f)
-                .padding(horizontal = 20.dp))
+        )
 
 
         IconButton(onClick = { /*TODO*/ }) {
             Image(painter = painterResource(id = R.drawable.ic_cart), contentDescription = "Menu Icon",
-                modifier= Modifier.size(24.dp))
+                modifier= Modifier.size(28.dp))
 
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun TopAppBarPreview(){
-//    TopAppBar()
-//}

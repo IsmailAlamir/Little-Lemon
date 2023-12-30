@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.littlelemon.DishRepository.dishes
+import com.example.littlelemon.ui.theme.LittleLemonColor
 
 @Composable
 fun LowerPanel(navController: NavHostController, dishes: List<Dish> = listOf()) {
@@ -123,7 +124,7 @@ fun MenuDish(navController: NavHostController? = null, dish: Dish) {
 
     }
     Divider(modifier = Modifier.padding(start = 8.dp, end = 8.dp),
-        color = Color.LightGray,
+        color = LittleLemonColor.yellow,
         thickness = 1.dp
     )
 

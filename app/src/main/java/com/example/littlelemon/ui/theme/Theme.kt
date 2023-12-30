@@ -14,17 +14,20 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.example.littlelemon.ui.theme.LittleLemonColor.green
+import com.example.littlelemon.ui.theme.LittleLemonColor.pink
+import com.example.littlelemon.ui.theme.LittleLemonColor.yellow
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Primary,
-    secondary = Secondary,
-    tertiary = Pink80
+    primary = yellow,
+    secondary = green,
+    tertiary = pink
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = yellow,
+    secondary = green,
+    tertiary = pink
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

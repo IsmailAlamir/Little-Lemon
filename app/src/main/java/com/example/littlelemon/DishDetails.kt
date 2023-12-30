@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.littlelemon.ui.theme.Primary
+import com.example.littlelemon.ui.theme.LittleLemonColor
 
 @Composable
 fun DishDetails(dishId: Int) {
@@ -80,7 +80,7 @@ fun DishDetails(dishId: Int) {
         Button(
             onClick = { /* TODO */ },
             modifier = Modifier.fillMaxWidth().padding(10.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Primary),
+            colors = ButtonDefaults.buttonColors(containerColor = LittleLemonColor.yellow),
             shape = RoundedCornerShape(16.dp),
         ) {
             Text(text = "Add for $${dish.price * counter}")

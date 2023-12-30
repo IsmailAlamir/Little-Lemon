@@ -68,7 +68,7 @@ fun UpperPanel(name: String,place:String) {
 
 
         Button(onClick = {
-                         Toast.makeText(context,"Order received. Thank you",Toast.LENGTH_SHORT)
+                         Toast.makeText(context,"Order received. Thank you",Toast.LENGTH_SHORT).show()
                          },
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(colorResource(id= R.color.primary))
@@ -85,8 +85,6 @@ fun UpperPanel(name: String,place:String) {
         }
 
     }
-
-
 
 
 

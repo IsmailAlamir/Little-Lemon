@@ -1,15 +1,11 @@
 package com.example.littlelemon
 
-import androidx.compose.foundation.layout.Arrangement
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -25,72 +21,74 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import kotlinx.coroutines.launch
-
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DrawerPanel(){
+fun HomeScreen() {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope= rememberCoroutineScope()
-    val items = listOf(
-        DrawerItem(icon = Icons.Default.Favorite , label= "123", secondaryLabel = "1"),
-        DrawerItem(icon = Icons.Default.Favorite , label= "234", secondaryLabel = "2"),
-        DrawerItem(icon = Icons.Default.Favorite , label= "345", secondaryLabel = "3")
-    )
+    val scope = rememberCoroutineScope()
+
     var selectedItem by remember {
         mutableStateOf(items[0])
     }
 
     ModalNavigationDrawer(
-        drawerState=drawerState,
-//        to disable the swipe
-//        gesturesEnabled = false,
-
-//      this is to enable swipe only if it is open
+        drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
         drawerContent = {
-        ModalDrawerSheet {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(),
+            ModalDrawerSheet {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(),
                     contentAlignment = Alignment.Center
-            ){
-                Text(text = "Header", style = MaterialTheme.typography.headlineLarge)
+                ) {
+                    Text(text = "Header", style = MaterialTheme.typography.headlineLarge)
+                }
+                items.forEach { item ->
+                    NavigationDrawerItem(
+                        label = { Text(text = item.label) },
+                        selected = item == selectedItem,
+                        onClick = {
+                            scope.launch { drawerState.close() }
+                            selectedItem = item
+                        },
+                        icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
+                        badge = { Text(text = item.secondaryLabel) },
+                        modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+                    )
+                }
             }
-            items.forEach{item->
-                NavigationDrawerItem(
-                    label = {  Text(text = item.label)},
-                    selected =item == selectedItem,
-                    onClick = {
-                        scope.launch { drawerState.close()}
-                        selectedItem=item},
-                    icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
-                    badge= { Text(text = item.secondaryLabel)},
-                    modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
-                )
+        },
+        content = {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        onClick = { scope.launch { drawerState.open() } }
+                    )
+                }
+            ) {
+                MainContent()
             }
         }
-    },
-        content=  {
-            TopAppBar(
-                onClick = { scope.launch { drawerState.open()} }
     )
-
-})
-        }
-
+}
 
 
 data class DrawerItem(
     val   icon: ImageVector,
     val label: String,
     val secondaryLabel: String
+)
+
+val items = listOf(
+    DrawerItem(icon = Icons.Default.Favorite, label = "123", secondaryLabel = "1"),
+    DrawerItem(icon = Icons.Default.Favorite, label = "234", secondaryLabel = "2"),
+    DrawerItem(icon = Icons.Default.Favorite, label = "345", secondaryLabel = "3")
 )
 

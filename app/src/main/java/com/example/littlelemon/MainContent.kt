@@ -7,9 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 
 @Composable
-fun MainContent() {
+fun MainContent(navController: NavHostController) {
     Column {
         Spacer(modifier = Modifier.height(64.dp))
         UpperPanel(
@@ -17,6 +18,6 @@ fun MainContent() {
             place = stringResource(id = R.string.place),
         )
         MenuCategoryImplement(Categories)
-        LowerPanel()
+        LowerPanel(navController, DishRepository.dishes)
     }
 }

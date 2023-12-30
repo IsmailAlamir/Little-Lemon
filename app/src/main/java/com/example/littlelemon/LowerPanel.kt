@@ -1,5 +1,6 @@
 package com.example.littlelemon
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,12 +11,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,12 +30,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.example.littlelemon.DishRepository.dishes
 
 @Composable
-fun LowerPanel() {
+fun LowerPanel(navController: NavHostController, dishes: List<Dish> = listOf()) {
     Column {
         WeeklySpecial()
-        DishesList(Dishes)
+        LazyColumn {
+            itemsIndexed(dishes) { _, dish ->
+                MenuDish(navController, dish)
+            }
+        }
     }
 }
 
@@ -60,12 +69,7 @@ fun WeeklySpecial(){
 
 @Composable
 fun DishesList(dishes: List<Dish>) {
-    LazyColumn(modifier = Modifier
-            .wrapContentWidth(Alignment.Start)
-            .padding(12.dp) ,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        // using lazyColumn
-        state = rememberLazyListState()) {
+    LazyColumn {
         items(dishes) { dish ->
             MenuDish(dish = dish)
         }
@@ -73,9 +77,16 @@ fun DishesList(dishes: List<Dish>) {
 }
 
 
+
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuDish(dish :Dish) {
-    Card (
+fun MenuDish(navController: NavHostController? = null, dish: Dish) {
+    Card(
+        onClick = {
+            Log.d("AAA", "Click ${dish.id}")
+            navController?.navigate(DishDetails.route + "/${dish.id}")
+        },
         colors = CardDefaults.cardColors(
             containerColor = Color.White),
 
@@ -96,7 +107,7 @@ fun MenuDish(dish :Dish) {
                         .padding(top = 5.dp, bottom = 5.dp)
                         .fillMaxWidth(.75f)
                 )
-                Text(text = dish.price,
+                Text(text = "$"+ dish.price,
                     color = Color(R.color.gray),
                     fontWeight = FontWeight.Bold
                 )
@@ -104,7 +115,7 @@ fun MenuDish(dish :Dish) {
             Image(
                 modifier= Modifier.size(85.dp),
                 contentScale = ContentScale.FillHeight,
-                painter = painterResource(id = dish.image),
+                painter = painterResource(id = dish.imageResource),
                 contentDescription = dish.name+ " Image")
 
         }
@@ -118,22 +129,9 @@ fun MenuDish(dish :Dish) {
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LowerPanelPreview(){
-    LowerPanel()
-}
-data class Dish(
-    val name: String,
-    val image: Int,
-    val description: String,
-    val price: String
-)
-
-val Dishes = listOf(
-    Dish(name = "Greek Salad", image = R.drawable.greeksalad, description ="Experience the taste of the Mediterranean with our Greek ..." , price = "$ 12.55"),
-    Dish(name = "Bruschetta", image = R.drawable.bruschetta, description ="Elevate your palate with our Tomato Basil Bruschetta. ..." , price = "$ 5.89"),
-    Dish(name = "Lemon Dessert", image = R.drawable.lemondessert, description ="Satisfy your sweet cravings with our Zesty Lemon Delight ..." , price = "$ 2.50"),
-    Dish(name = "Grilled Fish", image = R.drawable.grilledfish, description ="Elevate your palate with our Tomato ..." , price = "$ 7.45"),
-)
-
+//@Preview(showBackground = true)
+//@Composable
+//fun LowerPanelPreview(){
+//    LowerPanel()
+//}
+//

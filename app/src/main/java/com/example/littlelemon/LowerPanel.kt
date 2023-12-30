@@ -19,6 +19,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.littlelemon.DishRepository.dishes
 import com.example.littlelemon.ui.theme.LittleLemonColor
+import com.example.littlelemon.ui.theme.Typography
 
 @Composable
 fun LowerPanel(navController: NavHostController, dishes: List<Dish> = listOf()) {
@@ -99,10 +101,10 @@ fun MenuDish(navController: NavHostController? = null, dish: Dish) {
             Column {
                 Text(
                     text = dish.name,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    style = Typography.titleMedium
                 )
                 Text(text = dish.description,
+                    style = Typography.bodyLarge,
                     color = Color(R.color.gray),
                     modifier = Modifier
                         .padding(top = 5.dp, bottom = 5.dp)
@@ -110,6 +112,7 @@ fun MenuDish(navController: NavHostController? = null, dish: Dish) {
                 )
                 Text(text = "$"+ dish.price,
                     color = Color(R.color.gray),
+                    style = Typography.bodyMedium,
                     fontWeight = FontWeight.Bold
                 )
             }

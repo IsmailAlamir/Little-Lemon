@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = Home.route) {
                     composable(Home.route) {
-                        HomeScreen(navController)
+                        HomeScreen(navController = navController, context = this@MainActivity)
                     }
                     composable(
                         DishDetails.route + "/{${DishDetails.argDishId}}",
@@ -28,6 +28,10 @@ class MainActivity : ComponentActivity() {
                         val id = requireNotNull(it.arguments?.getInt(DishDetails.argDishId)) { "Dish id is null" }
                         DishDetails(id)
                     }
+                    composable(AboutUs.route) {
+                        AboutUsScreen()
+                    }
+
                 }
             }
         }

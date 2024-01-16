@@ -1,6 +1,8 @@
 package com.example.littlelemon
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,7 +11,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -28,10 +29,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(context: Context, navController: NavHostController) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -49,18 +51,28 @@ fun HomeScreen(navController: NavHostController) {
                         .fillMaxWidth(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Header", style = MaterialTheme.typography.headlineLarge)
+//                    Text(text = "Header", style = MaterialTheme.typography.headlineLarge)
                 }
                 items.forEach { item ->
                     NavigationDrawerItem(
                         label = { Text(text = item.label) },
                         selected = item == selectedItem,
                         onClick = {
+
                             scope.launch { drawerState.close() }
                             selectedItem = item
+                            when (item.label) {
+                                "Home" -> navController.navigate("home")
+                                "Menu" -> {
+                                    val intent = Intent(context, MenuActivity::class.java)
+                                    context.startActivity(intent)
+                                }
+                                "About Us" -> navController.navigate("aboutUs")
+                            }
+
                         },
                         icon = { Icon(imageVector = item.icon, contentDescription = item.label) },
-                        badge = { Text(text = item.secondaryLabel) },
+//                        badge = { Text(text = item.secondaryLabel) },
                         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
                     )
                 }
@@ -84,12 +96,12 @@ fun HomeScreen(navController: NavHostController) {
 data class DrawerItem(
     val   icon: ImageVector,
     val label: String,
-    val secondaryLabel: String
+//    val secondaryLabel: String
 )
 
 val items = listOf(
-    DrawerItem(icon = Icons.Default.Favorite, label = "123", secondaryLabel = "1"),
-    DrawerItem(icon = Icons.Default.Favorite, label = "234", secondaryLabel = "2"),
-    DrawerItem(icon = Icons.Default.Favorite, label = "345", secondaryLabel = "3")
+    DrawerItem(icon = Icons.Default.Favorite, label = "Home"),
+    DrawerItem(icon = Icons.Default.Favorite, label = "Menu"),
+    DrawerItem(icon = Icons.Default.Favorite, label = "About Us")
 )
 
